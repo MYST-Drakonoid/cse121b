@@ -47,14 +47,14 @@ document.querySelector("#divideNumbers").addEventListener(`click`, divNum);
 
 
 /* Decision Structure */
-let currentDate = getFullDate()
+
 
 
 /* ARRAY METHODS - Functional Programming */
 
 let numArray = [1,2,3,4,5,6,7,8,9,10,11,12,13];
-const arrayElement = document.getElementById(array);
-arrayElement.textContent = numArray
+const arrayElement = document.getElementById(`array`);
+arrayElement.textContent = numArray;
 
 /* Output Source Array */
 
@@ -72,4 +72,12 @@ document.querySelector("#sumOfArray").innerHTML = numArray.reduce((sum, number) 
 
 /* Output Multiplied by 2 Array */
 
+let multiArray = numArray.map(number => number *2)
+
+
+const multiElement = document.getElementById(`multiplied`);
+multiElement.textContent = multiArray;
+
 /* Output Sum of Multiplied by 2 Array */
+
+document.querySelector("#sumOfMultiplied").innerHTML = multiArray.reduce((sum, number) => sum + number);
