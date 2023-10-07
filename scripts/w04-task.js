@@ -4,12 +4,9 @@
 
 let myProfile = {
     name: "Anthony Peterson",
-    photo: "IMG_4581.JPG",
+    photo: "images/IMG_4581.JPG",
     favoriteFoods: ["sushi", "canned Fish", "fruits", "Vegetables", "Potatos"],
-    hobbies: [
-        "video games", "coding",
-        "marksmanship", "readinng"
-    ],
+    hobbies: ["video games", "coding","marksmanship", "readinng"],
     placesLived: [],
 };
 
@@ -61,7 +58,7 @@ myProfile.placesLived.push(
 /* DOM Manipulation - Output */
 
 document.querySelector(`#name`).textContent = myProfile.name;
-const imageelement = document.getElementById(`#photo`);
+const imageelement = document.querySelector(`#photo`);
 imageelement.setAttribute('src', myProfile.photo);
 imageelement.setAttribute('alt', `image of ${myProfile.name}`);
 
@@ -71,12 +68,19 @@ myProfile.favoriteFoods.forEach(food => {
     document.querySelector(`#favorite-foods`).appendChild(li);
 });
 
+myProfile.hobbies.forEach(things => {
+    let li = document.createElement(`li`);
+    li.textContent = things
+    document.querySelector(`#hobbies`).appendChild(li);
+});
+
 myProfile.placesLived.forEach(PL => {
     let place = document.createElement(`dt`);
     place.textContent = PL.place;
     let time = document.createElement(`dd`);
     time.textContent = PL.length;
-    document.querySelector(`#places-lived`).appendChild(place, time);
+    document.querySelector(`#places-lived`).appendChild(place);
+    document.querySelector(`#places-lived`).appendChild(time);
 });
 
 
