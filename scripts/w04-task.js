@@ -2,15 +2,83 @@
 
 /* Profile Object  */
 
-
+let myProfile = {
+    name: "Anthony Peterson",
+    photo: "IMG_4581.JPG",
+    favoriteFoods: ["sushi", "canned Fish", "fruits", "Vegetables", "Potatos"],
+    hobbies: [
+        "video games", "coding",
+        "marksmanship", "readinng"
+    ],
+    placesLived: [],
+};
 
 
 /* Populate Profile Object with placesLive objects */
-
-
-
+myProfile.placesLived.push(
+    {
+        place: "Colorado",
+        length: "1 year"
+    }
+);
+myProfile.placesLived.push(
+    {
+        place: "Germany",
+        length: "4 years"
+    }
+);
+myProfile.placesLived.push(
+    {
+        place: "Arizona",
+        length: "6 years"
+    }
+);
+myProfile.placesLived.push(
+    {
+        place: "Georgia",
+        length: "6 months"
+    }
+);
+myProfile.placesLived.push(
+    {
+        place: "Germany",
+        length: "10 years"
+    }
+);
+myProfile.placesLived.push(
+    {
+        place: "Arizona",
+        length: "1 year"
+    }
+);
+myProfile.placesLived.push(
+    {
+        place: "Canada",
+        length: "1 year"
+    }
+);
 
 /* DOM Manipulation - Output */
+
+document.querySelector(`#name`).textContent = myProfile.name;
+const imageelement = document.getElementById(`#photo`);
+imageelement.setAttribute('src', myProfile.photo);
+imageelement.setAttribute('alt', `image of ${myProfile.name}`);
+
+myProfile.favoriteFoods.forEach(food => {
+    let li = document.createElement(`li`);
+    li.textContent = food;
+    document.querySelector(`#favorite-foods`).appendChild(li);
+});
+
+myProfile.placesLived.forEach(PL => {
+    let place = document.createElement(`dt`);
+    place.textContent = PL.place;
+    let time = document.createElement(`dd`);
+    time.textContent = PL.length;
+    document.querySelector(`#places-lived`).appendChild(place, time);
+});
+
 
 /* Name */
 
