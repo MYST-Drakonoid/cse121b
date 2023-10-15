@@ -1,7 +1,7 @@
 /* W05: Programming Tasks */
 
 /* Declare and initialize global variables */
-const templesElement = document.createElement(`div`);
+const templesElement = document.getElementById(`#temples`);
 
 let templeList = [];
 
@@ -9,15 +9,17 @@ let templeList = [];
 
 const displayTemples = (temples) => {
     temples.forEach(element => {
-        let part = document.createElement(`article`);
-        let part2 = document.createElement(`h3`);
-        part2.innerHTML = element.templeName;
+        let article = document.createElement(`article`);
+        let h3 = document.createElement(`h3`);
+        h3.innerhtml = element.templeName;
         let imgpart = document.createElement(`img`);
         imgpart.setAttribute('src', element.imageUrl);
         imgpart.setAttribute('alt', element.location);
-        part.appendChild(part2, imgpart);
-        templesElement.appendChild(part);
+        article.appendChild(h3);
+        article.appendChild(imgpart);
+        document.querySelector(`#temples`).appendChild(article);
     });
+
 };
 /* async getTemples Function using fetch()*/
 
@@ -26,9 +28,10 @@ const getTemples = async () => {
     doStuff(response);
 }
 
-function doStuff(data) {
-    templeList = data;
+const doStuff = async(data) =>  {
+    templeList = await data.json();
     console.log("first: ", templeList);
+    displayTemples(templeList);
 }
 /* reset Function */
 reset = () => {
@@ -64,7 +67,7 @@ sortBy = (temples) => {
             displayTemples(temples);
         break;
     }
-}
+};
 
 
 getTemples();
