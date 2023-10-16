@@ -11,7 +11,7 @@ const displayTemples = (temples) => {
     temples.forEach(element => {
         let article = document.createElement(`article`);
         let h3 = document.createElement(`h3`);
-        h3.innerhtml = element.templeName;
+        h3.textContent = element.templeName;
         let imgpart = document.createElement(`img`);
         imgpart.setAttribute('src', element.imageUrl);
         imgpart.setAttribute('alt', element.location);
