@@ -1,9 +1,11 @@
 
 let IOTDInfo = [];
+let imageInfoHD = null;
 let imageInfo = null;
+const IODTElement = document.getElementById(`#IODT`)
 
 
-const displayPictureData = (info, imageinfo) => {
+const displayPictureData = (info, FL) => {
      
         let article = document.createElement(`article`);
         let h3 = document.createElement(`h3`);
@@ -11,12 +13,23 @@ const displayPictureData = (info, imageinfo) => {
         let bodyPart = document.createElement("body");
         bodyPart.textContent = info.explanation
         let imgpart = document.createElement(`img`);
-        imgpart.setAttribute('src', imageInfo);
+        imageinfo = sortBy(info, FL)
+        imgpart.setAttribute('src', imageInfoHD);
         imgpart.setAttribute('alt', info.title);
+        imgpart.style.width = "800px";
+        imgpart.style.display = "block";        
+        imgpart.style.marginLeft = "auto";
+        imgpart.style.marginRight = "auto";
+        
         article.appendChild(h3);
         article.appendChild(imgpart);
         article.appendChild(bodyPart)
+        article.style.width = "800px";
+        article.style.display = "block";        
+        article.style.marginLeft = "auto";
+        article.style.marginRight = "auto";
         document.querySelector(`#IOTD`).appendChild(article);
+        
     
 }
 
@@ -25,42 +38,84 @@ const getIOTD = async () => {
     doStuff(response);
 }
 
-const doStuff = async(data) =>  {
-    IOTDInfo = await data.json();
-    console.log("first: ", IOTDInfo);
-    displayPictureData(IOTDInfo);
-}
+import { doStuff } from "../dostuff";
+
 /* reset Function */
-reset = () => {
-    IOTDInfo.remove(`#article`);
+reset = (FL) => {
+    if (FL !== 0){
+    IODTElement.remove(`#article`);
+    }
 }
 
-sortBy = (file) => {
+sortBy = (file, FL) => {
     /* reset the element */
-    reset()
+    reset(FL)
+    let imagedata = null;
+    const selector = document.getElementById(`quality slector`)
     
-    filter = document.getElementById(`quality slector`)
-    if (file.media_type === "image")
-    {
-        switch(selector) {
-            case `HD`:
-                reset()
-                imageInfo = file.hdurl
-                
-            break;
-            case `RD`:
-                reset()
-                imageInfo = file.url
-                
-            break;
-        }
+    selector.remove();
+    
         
+    // if (("#quality slector :selected").textContent() == "HD")
+    // {
+    //     imagedata = imageInfoHD
+    //     return imageinfo
+    // }
+    // else 
+    // {
+    //     imagedata = imageInfo
+    //     return imagedata
+    // }
+        // switch(selector) {
+        //     case `HD`:
+        //         reset()
+        //         imagedata = imageInfoHD
+        //         return imagedata
+        //     break;
+        //     case `RD`:
+        //         reset()
+        //         imagedata = imageInfo
+        //         return imagedata
+        //     break;
+        // }
+        
+        
+    };
+        
+    
+    const getSteamDB = async () => {
+        const url = 'https://steamgames-special-offers.p.rapidapi.com/games_list/?start=0&count=10&region=US';
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': '8b3e8f6faemsh5c89dba3fac164bp11dbf3jsned297fef838d',
+                'X-RapidAPI-Host': 'steamgames-special-offers.p.rapidapi.com'
+            }
+        };
+        
+        try {
+            const response = await fetch(url, options);
+            const result = await response.text();
+            console.log(result);
+        } catch (error) {
+            console.error(error);
+        }
 
-        displayPictureData(IOTDInfo, imageInfo)
+        
     }
+
+
+
+
+
+
+
+
+
     
     
     
-};
-getIOTD();
-document.querySelector(`#quality slector`).addEventListener(`change`, () => {sortBy(IOTDInfo)});
+
+getSteamDB()
+IOTDInfo = getIOTD();
+// document.querySelector(`#quality slector`).addEventListener(`change`, () => {displayPictureData(IOTDInfo, 1)});
