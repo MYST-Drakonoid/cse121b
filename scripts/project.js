@@ -38,8 +38,16 @@ const getIOTD = async () => {
     doStuff(response);
 }
 
-import { doStuff } from "../dostuff";
-
+const doStuff = async(data) =>  {
+    DB = await data.json();
+    console.log("first: ", DB);
+    let firstload = 0
+    imageInfoHD = DB.hdurl;
+    imageInfo = DB.url;
+    displayPictureData(DB, firstload)
+    firstload++
+    return DB;
+}
 /* reset Function */
 reset = (FL) => {
     if (FL !== 0){
@@ -116,6 +124,6 @@ sortBy = (file, FL) => {
     
     
 
-getSteamDB()
+
 IOTDInfo = getIOTD();
 // document.querySelector(`#quality slector`).addEventListener(`change`, () => {displayPictureData(IOTDInfo, 1)});
