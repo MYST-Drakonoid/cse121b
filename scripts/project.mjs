@@ -13,7 +13,7 @@ const displayPictureData = (info, FL) => {
         let bodyPart = document.createElement("body");
         bodyPart.textContent = info.explanation
         let imgpart = document.createElement(`img`);
-        imageinfo = sortBy(info, FL)
+        let imageinfo = sortBy(info, FL)
         imgpart.setAttribute('src', imageInfoHD);
         imgpart.setAttribute('alt', info.title);
         imgpart.style.width = "800px";
@@ -39,7 +39,7 @@ const getIOTD = async () => {
 }
 
 const doStuff = async(data) =>  {
-    DB = await data.json();
+    const DB = await data.json();
     console.log("first: ", DB);
     let firstload = 0
     imageInfoHD = DB.hdurl;
@@ -49,19 +49,16 @@ const doStuff = async(data) =>  {
     return DB;
 }
 /* reset Function */
-reset = (FL) => {
+const reset = (FL) => {
     if (FL !== 0){
     IODTElement.remove(`#article`);
     }
 }
 
-sortBy = (file, FL) => {
+const sortBy = (file, FL) => {
     /* reset the element */
     reset(FL)
-    let imagedata = null;
-    const selector = document.getElementById(`quality slector`)
     
-    selector.remove();
     
         
     // if (("#quality slector :selected").textContent() == "HD")
@@ -112,7 +109,9 @@ sortBy = (file, FL) => {
         
     }
 
-
+    export const mainspace = () => {
+        IOTDInfo = getIOTD();
+    }
 
 
 
@@ -125,5 +124,5 @@ sortBy = (file, FL) => {
     
 
 
-IOTDInfo = getIOTD();
+
 // document.querySelector(`#quality slector`).addEventListener(`change`, () => {displayPictureData(IOTDInfo, 1)});
