@@ -7,5 +7,4 @@ function sleep(ms) {
   }
 
 mainspace()
-sleep(100)
-mainBlock()
+sleep(2000).then(() => { mainBlock() });
