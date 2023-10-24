@@ -1,29 +1,23 @@
 
-
-
 let IOTDInfo = [];
 let imageInfo = null;
-switch(selector) {
-    case `HD`:
-        imageInfo = file.hdurl
-    break;
-    case `RD`:
-        imageInfo = file.url
-    break;
-}
 
-const displayPictureData = (info) => {
-    info.forEach(element => {
+
+const displayPictureData = (info, imageinfo) => {
+     
         let article = document.createElement(`article`);
         let h3 = document.createElement(`h3`);
-        h3.textContent = element.templeName;
+        h3.textContent = info.title;
+        let bodyPart = document.createElement("body");
+        bodyPart.textContent = info.explanation
         let imgpart = document.createElement(`img`);
-        imgpart.setAttribute('src', element.imageUrl);
-        imgpart.setAttribute('alt', element.location);
+        imgpart.setAttribute('src', imageInfo);
+        imgpart.setAttribute('alt', info.title);
         article.appendChild(h3);
         article.appendChild(imgpart);
+        article.appendChild(bodyPart)
         document.querySelector(`#IOTD`).appendChild(article);
-    });
+    
 }
 
 const getIOTD = async () => {
@@ -38,44 +32,35 @@ const doStuff = async(data) =>  {
 }
 /* reset Function */
 reset = () => {
-    templesElement.remove(`#article`);
+    IOTDInfo.remove(`#article`);
 }
 
-sortBy = (temples) => {
+sortBy = (file) => {
     /* reset the element */
-    reset(templesElement)
-    filter = document.getElementById(`sortby`)
+    reset()
+    
+    filter = document.getElementById(`quality slector`)
+    if (file.media_type === "image")
+    {
+        switch(selector) {
+            case `HD`:
+                reset()
+                imageInfo = file.hdurl
+                
+            break;
+            case `RD`:
+                reset()
+                imageInfo = file.url
+                
+            break;
+        }
+        
 
-    function checkWordtrue(test, against) {
-        return test.includes(`utah`) === true;
-    };
-    function checkWordfalse(test, against) {
-        return test.includes(`utah`) === false;
-    };
-    function checkDate(test, against) {
-        return test < 1950;
-    }; 
+        displayPictureData(IOTDInfo, imageInfo)
+    }
+    
+    
+    
 };
-
-
-
-
-
-
-
-const url = 'https://steamgames-special-offers.p.rapidapi.com/games_list/?start=0&count=10&region=US';
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': '8b3e8f6faemsh5c89dba3fac164bp11dbf3jsned297fef838d',
-		'X-RapidAPI-Host': 'steamgames-special-offers.p.rapidapi.com'
-	}
-};
-
-try {
-	const response = await fetch(url, options);
-	const result = await response.text();
-	console.log(result);
-} catch (error) {
-	console.error(error);
-}
+getIOTD();
+document.querySelector(`#quality slector`).addEventListener(`change`, () => {sortBy(IOTDInfo)});
